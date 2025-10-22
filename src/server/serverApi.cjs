@@ -14,7 +14,7 @@ app.get('/a', (req,res)=>{
 )
 app.get('/api/cards', async (req, res) => {
   try {
-    const response = await axios.get('https://api.clashroyale.com/v1/cards', {
+    const response = await axios.get('https://api.clashroyale.com/v1/cards = pt-BR', {
       headers: { Authorization: `Bearer ${API_KEY}` }
     });
     res.json(response.data);
