@@ -1,16 +1,33 @@
-# React + Vite
+Este é um projeto pessoal feito por mim (Rafael) para praticar o uso do React. Nele irei consumir a API do Clash Royale para apresentar as informações do jogo em geral, desde cartas até jogadores existentes, utilizando de tudo que a API oferece.
+ a estrutura de pastas está organizada, diferente dos meus primeiros projetos.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-Currently, two official plugins are available:
+-> SuperGuiaDoClash
+--> na pasta src você encontrará todos a estrutura de pastas do site.
+---> na pasta components você encontrará os Botões e componentes reútilizáveis que usei em todo site.
+---> na pasta páginas você encontrará as telas.
+---> na pasta server você encontrará o servidor criado, simulando o Back-End.
+---> embaixo da pasta server você encontrará o arquivo de App, mostrando a navegação.
+--> ao dar npm i aparecerá a pasta node_modules com todas as instalações de bibliotecas utilizadas no projeto.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Para rodar localmente, você precisa entar neste link  --->  https://developer.clashroyale.com/#/
+Crie uma conta ou entre em uma já existente
+Feito isso, aperte no botão no canto superior direito e vá em 'My Account'
+Clique em 'Create New Key', dê um nome para sua chave, coloque algo na descrição e forneça o endereço de IP usando este link 
+---> https://www.iplocation.net/myip
+Crie sua chave e depois clique nela novamente para copiar seu token e colar no arquivo serverAPI.jsx dentro da pasta server
+Cole dentro das aspas dessa linha --> const API_KEY = ''
 
-## React Compiler
+Feito isso abra o terminal 'Ctrl + J' e rode este comando: 
+node src/server/serverApi.cjs
+se aparecer --> ✅ API rodando em http://127.0.0.1:3001 
+está tudo certo e podes até acessar o endereço de site acima para ver o JSON da API
+Agora abra outro terminal (sem fechar o anterior) e dê os comandos respectivamente:
+cd src
+npm run dev
+Dê Ctrl + click e aperte no link, depois entre no navegador e veja rodando.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
 
-## Expanding the ESLint configuration
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+
+

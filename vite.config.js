@@ -1,7 +1,11 @@
 export default {
   server: {
     proxy: {
-      '/api': 'http://172.31.96.1:3001'
-    }
-  }
+      '/api': {
+        target: 'http://127.0.0.1:3001',
+        changeOrigin: true,
+        secure: false,
+      },
+    },
+  },
 }

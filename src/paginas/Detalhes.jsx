@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
+import { useParams, Link } from 'react-router-dom';
 import axios from 'axios';
-import Card from '../components/card.jsx';
 
-const CardsList = () => {
-  const [cards, setCards] = useState([]);
+export default function CardDetails() {
+  const { id } = useParams();
+  const [card, setCard] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -138,53 +139,83 @@ const CardsList = () => {
     "legendary": "Lendária"
   };
 
+
   useEffect(() => {
-    const fetchCards = async () => {
+    const fetchCard = async () => {
       try {
         const response = await axios.get('/api/cards');
-        console.log('Cartas:', response.data.items);
-        setCards(response.data.items || []);
+        const foundCard = response.data.items.find(c => c.id.toString() === id);
+        setCard(foundCard || null);
       } catch (err) {
-        console.error('Erro ao buscar cartas:', err.message);
-        setError('Erro ao buscar cartas.');
+        console.error('Erro ao buscar carta:', err.message);
+        setError('Erro ao buscar carta.');
       } finally {
         setLoading(false);
       }
     };
 
-    fetchCards();
-  }, []);
+    fetchCard();
+  }, [id]);
 
-  if (loading) return <p>Carregando cartas...</p>;
+  if (loading) return <p>Carregando detalhes...</p>;
   if (error) return <p>{error}</p>;
+  if (!card) return <p>Carta não encontrada.</p>;
 
   return (
-
-<div style={{textAlign: 'center'}}>
-  <h1>SuperGuia do Clash Royale</h1>
-    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '20px', paddingLeft: '25px' }}>
-      {cards.map((card) => (
+    <div
+      style={{
+        display: 'flex',          // ativa o flexbox
+        flexDirection: 'column',  // empilha os elementos verticalmente
+        justifyContent: 'center', // centraliza verticalmente
+        alignItems: 'center',     // centraliza horizontalmente
+        minHeight: '100vh',      // ocupa toda a altura da tela
+        minWidth: '200vh',
+        textAlign: 'center',      // mantém o texto centralizado
+        padding: '20px',          // um pouco de espaço interno
+        boxSizing: 'border-box',
+      }}
+    >
         <div
-          key={card.id}
-          style={{
-            border: '1px solid #ccc',
-            borderRadius: '8px',
-            padding: '10px',
-            width: '180px',
-            textAlign: 'center',
-            backgroundColor: '#f8f8f8',
-          }}
+        style={{
+        minWidth: '85vh',
+        border: '1px solid black',
+        borderRadius: '8px',
+        paddingTop: '20px',
+        paddingBottom: '20px'
+    }}
         >
-          <Card
-            card={card}
-            nomesPTBR={nomesPTBR}
-            raridadesPTBR={raridadesPTBR}
-          />
-        </div>
-      ))}
-    </div>
-</div>
-  );
-};
 
-export default CardsList;
+      <Link to="/">← Voltar</Link>
+      <h1>{nomesPTBR[card.name] || card.name}</h1>
+  
+      {card.iconUrls?.medium && (
+        <img
+          src={card.iconUrls.medium}
+          alt={card.name}
+          style={{ width: '200px', margin: '20px 0' }}
+        />
+      )}
+  
+      <p><strong>Raridade: </strong> {raridadesPTBR[card.rarity] || card.rarity}</p>
+      <p><strong>Tipo: </strong> {card.type}</p>
+      <p><strong>Custo de Elixir:</strong> {card.elixirCost || 'N/A'}</p>
+  
+      {card.arena && <p><strong>Arena:</strong> {card.arena.name}</p>}
+      {card.description && <p><strong>Descrição:</strong> {card.description}</p>}
+  
+      {card.stats && (
+        <div style={{ textAlign: 'left', marginTop: '20px' }}>
+          <h3>Stats:</h3>
+          <ul>
+            {Object.entries(card.stats).map(([key, value]) => (
+              <li key={key}>
+                {key}: {value}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+      </div>
+    </div>
+  );
+}
