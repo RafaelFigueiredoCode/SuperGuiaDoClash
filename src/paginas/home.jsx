@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import axios from 'axios';
 import Card from '../components/card.jsx';
+import { ThemeContext } from '../components/ThemeContext';
 
 const CardsList = () => {
   const [cards, setCards] = useState([]);
@@ -138,6 +139,8 @@ const CardsList = () => {
     "legendary": "Lendária"
   };
 
+  const { theme, toggleTheme } = useContext(ThemeContext);
+
   useEffect(() => {
     const fetchCards = async () => {
       try {
@@ -158,10 +161,25 @@ const CardsList = () => {
   if (loading) return <p>Carregando cartas...</p>;
   if (error) return <p>{error}</p>;
 
+  const themeStyles = {
+    backgroundColor: theme === 'light' ? '#f5f5f5' : '#222',
+    color: theme === 'light' ? '#000' : '#fff',
+    minHeight: '100vh',
+    padding: '20px',
+    transition: 'all 0.3s ease',
+  };
+
+
   return (
 
-<div style={{textAlign: 'center'}}>
+<div style={themeStyles}>
   <h1>SuperGuia do Clash Royale</h1>
+  <button
+    onClick={toggleTheme}
+      style={{ width: '20%', padding: '8px' }}
+      >
+    Trocar Tema (atual: {theme})
+  </button>
     <div style={{ display: 'flex', flexWrap: 'wrap', gap: '20px', paddingLeft: '25px' }}>
       {cards.map((card) => (
         <div

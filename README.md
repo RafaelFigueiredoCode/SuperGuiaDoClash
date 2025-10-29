@@ -1,7 +1,6 @@
 Este é um projeto pessoal feito por mim (Rafael) para praticar o uso do React. Nele irei consumir a API do Clash Royale para apresentar as informações do jogo em geral, desde cartas até jogadores existentes, utilizando de tudo que a API oferece.
  a estrutura de pastas está organizada, diferente dos meus primeiros projetos.
 
-
 -> SuperGuiaDoClash
 --> na pasta src você encontrará todos a estrutura de pastas do site.
 ---> na pasta components você encontrará os Botões e componentes reútilizáveis que usei em todo site.
@@ -13,9 +12,9 @@ Este é um projeto pessoal feito por mim (Rafael) para praticar o uso do React. 
 Para rodar localmente, você precisa entar neste link  --->  https://developer.clashroyale.com/#/
 Crie uma conta ou entre em uma já existente
 Feito isso, aperte no botão no canto superior direito e vá em 'My Account'
-Clique em 'Create New Key', dê um nome para sua chave, coloque algo na descrição e forneça o endereço de IP usando este link 
+Clique em 'Create New Key', dê um nome para sua chave, coloque algo na descrição e forneça o endereço de IPv4 usando este link 
 ---> https://www.iplocation.net/myip
-Crie sua chave e depois clique nela novamente para copiar seu token e colar no arquivo serverAPI.jsx dentro da pasta server
+Crie sua chave e depois clique nela novamente para copiar seu token e colar no arquivo serverApi.jsx dentro da pasta server
 Cole dentro das aspas dessa linha --> const API_KEY = ''
 
 Feito isso abra o terminal 'Ctrl + J' e rode este comando: 
