@@ -163,46 +163,80 @@ const CardsList = () => {
 
   const themeStyles = {
     backgroundColor: theme === 'light' ? '#f5f5f5' : '#222',
-    color: theme === 'light' ? '#000' : '#fff',
+    color: theme === 'dark' ? '#000' : '#fff',
     minHeight: '100vh',
     padding: '20px',
     transition: 'all 0.3s ease',
   };
 
-
   return (
-
-<div style={themeStyles}>
-  <h1>SuperGuia do Clash Royale</h1>
+    <div
+      style={{
+        ...themeStyles, // aplica o tema atual
+        minHeight: '100vh',
+        minWidth: '196vh',
+        backgroundColor: theme === 'light' ? '#f0f0f0' : '#121212',
+        color: theme === 'light' ? '#000' : '#fff',
+        padding: '30px',
+      }}
+    >
+<div style={{ position: 'relative', padding: '25px' }}>
   <button
+    style={{
+      position: 'absolute',
+      top: '10px',
+      right: '10px',
+      backgroundColor: 'tomato',
+      color: '#fff',
+      border: 'none',
+      borderRadius: '8px',
+      padding: '10px 20px',
+      cursor: 'pointer',
+    }}
     onClick={toggleTheme}
-      style={{ width: '20%', padding: '8px' }}
-      >
-    Trocar Tema (atual: {theme})
+  >
+    Trocar tema
   </button>
-    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '20px', paddingLeft: '25px' }}>
-      {cards.map((card) => (
-        <div
-          key={card.id}
-          style={{
-            border: '1px solid #ccc',
-            borderRadius: '8px',
-            padding: '10px',
-            width: '180px',
-            textAlign: 'center',
-            backgroundColor: '#f8f8f8',
-          }}
-        >
-          <Card
-            card={card}
-            nomesPTBR={nomesPTBR}
-            raridadesPTBR={raridadesPTBR}
-          />
-        </div>
-      ))}
-    </div>
+
+  <h1>SuperGuia do Clash Royale</h1>
 </div>
+  
+      <div
+        style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
+          gap: '20px',
+          justifyItems: 'center',
+        }}
+      >
+        {cards.map((card) => (
+          <div
+            key={card.id}
+            style={{
+              border: '1px solid #ccc',
+              borderRadius: '10px',
+              padding: '10px',
+              width: '180px',
+              backgroundColor: theme === 'light' ? '#fff' : '#1f1f1f',
+              boxShadow:
+                theme === 'light'
+                  ? '0 2px 6px rgba(0,0,0,0.1)'
+                  : '0 2px 6px rgba(255,255,255,0.1)',
+              transition: 'transform 0.2s ease',
+            }}
+            onMouseEnter={(e) => (e.currentTarget.style.transform = 'scale(1.05)')}
+            onMouseLeave={(e) => (e.currentTarget.style.transform = 'scale(1)')}
+          >
+            <Card
+              card={card}
+              nomesPTBR={nomesPTBR}
+            />
+          </div>
+        ))}
+      </div>
+    </div>
   );
-};
+
+}
 
 export default CardsList;

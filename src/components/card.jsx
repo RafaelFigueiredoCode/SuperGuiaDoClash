@@ -8,7 +8,7 @@ export default function Card({ card, nomesPTBR, raridadesPTBR }) {
     onClick={() => navigate(`/card/${card.id}`)}
       style={{ cursor: 'pointer' }}
     >
-      <p>{nomesPTBR[card.name] || card.name}</p>
+      <p style={{fontSize: '16px', fontWeight: 'bold'}}>{nomesPTBR[card.name] || card.name}</p>
 
       {card.iconUrls?.medium && (
         <img
@@ -17,9 +17,6 @@ export default function Card({ card, nomesPTBR, raridadesPTBR }) {
           style={{ width: '100%', borderRadius: '4px' }}
         />
       )}
-
-      <p>Raridade: {raridadesPTBR[card.rarity] || card.rarity}</p>
-      <p>Elixir: {card.elixirCost ?? 'N/A'}</p>
     </div>
   );
 }

@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import axios from 'axios';
+import { ThemeContext } from '../components/ThemeContext';
 
 export default function CardDetails() {
   const { id } = useParams();
@@ -139,6 +140,8 @@ export default function CardDetails() {
     "legendary": "Lendária"
   };
 
+  const { theme, toggleTheme } = useContext(ThemeContext);
+
 
   useEffect(() => {
     const fetchCard = async () => {
@@ -161,27 +164,55 @@ export default function CardDetails() {
   if (error) return <p>{error}</p>;
   if (!card) return <p>Carta não encontrada.</p>;
 
+  const themeStyles = {
+    backgroundColor: theme === 'light' ? '#f5f5f5' : '#222',
+    color: theme === 'light' ? '#000' : '#fff',
+    minHeight: '100vh',
+    padding: '20px',
+    transition: 'all 0.3s ease',
+    border: theme === 'light' ? '#000' : '#fff',
+  };
+
   return (
     <div
       style={{
-        display: 'flex',          // ativa o flexbox
-        flexDirection: 'column',  // empilha os elementos verticalmente
-        justifyContent: 'center', // centraliza verticalmente
-        alignItems: 'center',     // centraliza horizontalmente
-        minHeight: '100vh',      // ocupa toda a altura da tela
+        ...themeStyles, 
+        display: 'flex',          
+        flexDirection: 'column',  
+        justifyContent: 'center', 
+        alignItems: 'center',     
+        minHeight: '100vh',     
         minWidth: '200vh',
-        textAlign: 'center',      // mantém o texto centralizado
-        padding: '20px',          // um pouco de espaço interno
+        textAlign: 'center',      
+        padding: '20px',          
         boxSizing: 'border-box',
       }}
     >
+<button
+  style={{
+    position: 'fixed',
+    top: '20px',
+    right: '20px',
+    backgroundColor: 'tomato',
+    color: '#fff',
+    border: 'none',
+    borderRadius: '8px',
+    padding: '10px 20px',
+    cursor: 'pointer',
+    zIndex: 1000,
+  }}
+  onClick={toggleTheme}
+>
+  Trocar tema
+</button>
         <div
-        style={{
+        style={{  
         minWidth: '85vh',
-        border: '1px solid black',
+        border: '3px solid',
         borderRadius: '8px',
         paddingTop: '20px',
-        paddingBottom: '20px'
+        paddingBottom: '20px',
+        borderColor: theme === 'light' ? '#000' : '#fff',
     }}
         >
 
@@ -197,11 +228,7 @@ export default function CardDetails() {
       )}
   
       <p><strong>Raridade: </strong> {raridadesPTBR[card.rarity] || card.rarity}</p>
-      <p><strong>Tipo: </strong> {card.type}</p>
       <p><strong>Custo de Elixir:</strong> {card.elixirCost || 'N/A'}</p>
-  
-      {card.arena && <p><strong>Arena:</strong> {card.arena.name}</p>}
-      {card.description && <p><strong>Descrição:</strong> {card.description}</p>}
   
       {card.stats && (
         <div style={{ textAlign: 'left', marginTop: '20px' }}>
