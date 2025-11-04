@@ -24,6 +24,18 @@ app.get('/api/cards', async (req, res) => {
   }
 });
 
+app.get('/api/clan/:tag', async (req, res) => {
+  const tag = encodeURIComponent(req.params.tag.replace('#', ''));
+  try {
+    const response = await axios.get (`https://api.clashroyale.com/v1/clans/%23${tag}`, {
+      headers: { Authorization: `Bearer ${API_KEY}` }
+    })
+    res.json(response.data);
+  } catch (error) {
+    res.status(error.response?.status || 500).json({ error: error.message });
+  }
+});
+
 const PORT = 3001;
 app.listen(PORT, '0.0.0.0', () => {
   console.log(`✅ API rodando em http://127.0.0.1:${PORT}`);

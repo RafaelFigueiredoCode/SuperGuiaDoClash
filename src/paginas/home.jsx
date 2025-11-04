@@ -2,11 +2,9 @@ import React, { useEffect, useState, useContext } from 'react';
 import axios from 'axios';
 import Card from '../components/card.jsx';
 import { ThemeContext } from '../components/ThemeContext';
+import useFetch from '../components/useFetch.jsx';
 
 const CardsList = () => {
-  const [cards, setCards] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
 
   const nomesPTBR = {
     "Knight": "Cavaleiro",
@@ -141,22 +139,8 @@ const CardsList = () => {
 
   const { theme, toggleTheme } = useContext(ThemeContext);
 
-  useEffect(() => {
-    const fetchCards = async () => {
-      try {
-        const response = await axios.get('/api/cards');
-        console.log('Cartas:', response.data.items);
-        setCards(response.data.items || []);
-      } catch (err) {
-        console.error('Erro ao buscar cartas:', err.message);
-        setError('Erro ao buscar cartas.');
-      } finally {
-        setLoading(false);
-      }
-    };
 
-    fetchCards();
-  }, []);
+  const { data: cards, error, loading } = useFetch('api/cards');
 
   if (loading) return <p>Carregando cartas...</p>;
   if (error) return <p>{error}</p>;
@@ -172,9 +156,9 @@ const CardsList = () => {
   return (
     <div
       style={{
-        ...themeStyles, // aplica o tema atual
+        ...themeStyles,
         minHeight: '100vh',
-        minWidth: '196vh',
+        minWidth: '100vh',
         backgroundColor: theme === 'light' ? '#f0f0f0' : '#121212',
         color: theme === 'light' ? '#000' : '#fff',
         padding: '30px',
@@ -209,7 +193,7 @@ const CardsList = () => {
           justifyItems: 'center',
         }}
       >
-        {cards.map((card) => (
+       {(cards.items || []).map((card) => (
           <div
             key={card.id}
             style={{
