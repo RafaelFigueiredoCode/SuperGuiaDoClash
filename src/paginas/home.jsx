@@ -1,8 +1,9 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useContext } from 'react';
 import axios from 'axios';
 import Card from '../components/card.jsx';
 import { ThemeContext } from '../components/ThemeContext';
 import useFetch from '../components/useFetch.jsx';
+import { useNavigate } from 'react-router-dom';
 
 const CardsList = () => {
 
@@ -139,6 +140,7 @@ const CardsList = () => {
 
   const { theme, toggleTheme } = useContext(ThemeContext);
 
+  const navigate = useNavigate();
 
   const { data: cards, error, loading } = useFetch('api/cards');
 
@@ -182,7 +184,43 @@ const CardsList = () => {
     Trocar tema
   </button>
 
-  <h1>SuperGuia do Clash Royale</h1>
+  <div
+    style={{
+      display: 'flex',
+      alignItems: 'center',
+      gap: '30px',
+    }}
+  >
+    <h1>SuperGuia do Clash Royale</h1>
+    <button
+      style={{
+        backgroundColor: 'tomato',
+        color: '#fff',
+        border: 'none',
+        borderRadius: '8px',
+        padding: '10px 20px',
+        cursor: 'pointer',
+        marginRight: '5px',
+      }}
+      onClick={() => navigate('/procurar/clã')}
+    >
+      Procurar Clã
+    </button>
+    <button
+     style={{
+      backgroundColor: 'tomato',
+      color: '#fff',
+      border: 'none',
+      borderRadius: '8px',
+      padding: '10px 20px',
+      cursor: 'pointer',
+      marginRight: '20px',
+    }}
+    onClick={() => navigate('/procurar/player')}
+    >
+    Procurar Jogador
+    </button>
+  </div>
 </div>
   
       <div
