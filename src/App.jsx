@@ -4,6 +4,8 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import DetalheClasher from './paginas/Detalhes'
 import ProcurarClan from './paginas/ProcurarClan.jsx';
 import ProcurarPlayer from './paginas/ProcurarPlayer.jsx';
+import PlayerDetails from './paginas/PlayerDetails.jsx';
+import PlayerBadges from './paginas/PlayerBagdes.jsx';
 
 const App = () => (
   <Router>
@@ -12,6 +14,8 @@ const App = () => (
         <Route path="/card/:id" element={<DetalheClasher/>} />
         <Route path="/procurar/clã" element={<ProcurarClan/>} />
         <Route path="/procurar/player" element={<ProcurarPlayer/>} />
+        <Route path="/player/:tag" element={<PlayerDetails/>} />
+        <Route path="/player/:tag/badges" element={<PlayerBadges/>} />
       </Routes>
   </Router>
 );
