@@ -97,7 +97,8 @@ const Procurardata = () => {
               color: theme === 'light' ? '#fff' : '#000',
               padding: '10px 20px',
               borderRadius: '8px',
-              textDecoration: 'none'
+              textDecoration: 'none',
+              marginBottom: '15px'
             }}>
               Voltar
             </Link>
@@ -118,9 +119,17 @@ const Procurardata = () => {
       <p><strong>Melhor pontuação:</strong> {data.bestTrophies}</p>
     </div>
 
-    <button
-    onClick={() => navigate(`/player/${data.tag.replace('#', '')}`)}
-    >ver mais</button>
+    <Link to={`/player/${data.tag.replace('#', '')}`} style={{
+              display: 'inline-block',
+              marginTop: '15px',
+              backgroundColor: theme === 'light' ? '#000' : '#fff',
+              color: theme === 'light' ? '#fff' : '#000',
+              padding: '10px 20px',
+              borderRadius: '8px',
+              textDecoration: 'none'
+            }}>
+              Ver Mais
+            </Link>
   </div>
       )}
     </div>

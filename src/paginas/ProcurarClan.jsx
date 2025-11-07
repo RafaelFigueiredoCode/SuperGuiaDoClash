@@ -117,8 +117,23 @@ const ProcurarClan = () => {
                 <div key={clan.tag} style={cardStyle}>
                   <h3>{clan.name}</h3>
                   <p><strong>Tag:</strong> {clan.tag}</p>
-                  <p><strong>Membros:</strong> {clan.members}/50</p>
-                  <p><strong>Troféus:</strong> {clan.clanScore}</p>
+                  {clan && (
+                    <Link
+                      to={`/clan/${encodeURIComponent(clan.tag.replace('#', ''))}`}
+                      style={{
+                        display: 'inline-block',
+                        marginTop: '15px',
+                        backgroundColor: theme === 'light' ? '#007bff' : '#fff',
+                        color: theme === 'light' ? '#fff' : '#000',
+                        padding: '10px 20px',
+                        borderRadius: '8px',
+                        textDecoration: 'none',
+                        fontWeight: 'bold',
+                      }}
+                    >
+                      Ver Clã
+                    </Link>
+                  )}
                 </div>
               ))}
             </div>

@@ -38,6 +38,32 @@ app.get('/api/clans', async (req, res) => {
   }
 });
 
+app.get('/api/clan/:tag', async (req, res) => {
+  const { tag } = req.params;
+  try {
+    const response = await axios.get(
+      `https://api.clashroyale.com/v1/clans/%23${tag}`,
+      { headers: { Authorization: `Bearer ${process.env.VITE_CLASH_API_TOKEN}` } }
+    );
+    res.json(response.data);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+app.get('/api/clan/:tag/members', async (req, res) => {
+  const { tag } = req.params;
+  try {
+    const response = await axios.get(
+      `https://api.clashroyale.com/v1/clans/%23${tag}/members`,
+      { headers: { Authorization: `Bearer ${process.env.VITE_CLASH_API_TOKEN}` } }
+    );
+    res.json(response.data);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
 app.get('/api/player/:tag', async (req, res) => {
   const tag = encodeURIComponent(req.params.tag.replace('#', ''));
 
@@ -52,6 +78,19 @@ app.get('/api/player/:tag', async (req, res) => {
   } catch (error) {
     console.error('❌ Erro na rota /api/player:', error.message);
     res.status(error.response?.status || 500).json({ error: error.message });
+  }
+});
+
+app.get('/api/player/:tag/battlelog', async (req, res) => {
+  const { tag } = req.params;
+  try {
+    const response = await axios.get(`https://api.clashroyale.com/v1/players/%23${tag}/battlelog`, {
+      headers: { Authorization: `Bearer ${process.env.VITE_CLASH_API_TOKEN}` }
+    });
+    res.json(response.data);
+  } catch (err) {
+    console.error('Erro ao buscar Battlelog:', err.response?.data || err.message);
+    res.status(500).json({ error: 'Erro ao buscar histórico de batalhas.' });
   }
 });
 
