@@ -1,21 +1,19 @@
 const express = require('express');
 const cors = require('cors');
 const axios = require('axios');
+require('dotenv').config(); 
 
 const app = express();
 app.use(cors());
 
+app.get('/a', (req, res) => {
+  res.json({ msg: 'Olá mundo' });
+});
 
-const API_KEY = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiIsImtpZCI6IjI4YTMxOGY3LTAwMDAtYTFlYi03ZmExLTJjNzQzM2M2Y2NhNSJ9.eyJpc3MiOiJzdXBlcmNlbGwiLCJhdWQiOiJzdXBlcmNlbGw6Z2FtZWFwaSIsImp0aSI6ImVkNTZkZDM0LTg4YzQtNDc4MC1hMDU1LWZmM2JlZDcyMGY0ZSIsImlhdCI6MTc2MTY1MTA0NCwic3ViIjoiZGV2ZWxvcGVyL2QzNjZiZDI2LTllY2UtMGE5Zi00MGYwLTE2YmE0MjMwZGVjYyIsInNjb3BlcyI6WyJyb3lhbGUiXSwibGltaXRzIjpbeyJ0aWVyIjoiZGV2ZWxvcGVyL3NpbHZlciIsInR5cGUiOiJ0aHJvdHRsaW5nIn0seyJjaWRycyI6WyIxODkuOC4yMDUuMjYiXSwidHlwZSI6ImNsaWVudCJ9XX0.9nqnwe84CVrMgutSc9x3Ch6BFeCfwQJrUFCdYtCbtnXS8smsbZ0sh1F0lVy5EW7U0fwa1Pu6uA12uz4e2cJ1PQ';
-app.get('/a', (req,res)=>{
-  res.json({"msg":"Ola mundo"})
-}
-
-)
 app.get('/api/cards', async (req, res) => {
   try {
     const response = await axios.get('https://api.clashroyale.com/v1/cards', {
-      headers: { Authorization: `Bearer ${API_KEY}` }
+      headers: { Authorization: `Bearer ${process.env.VITE_CLASH_API_TOKEN}` },
     });
     res.json(response.data);
   } catch (error) {
@@ -30,7 +28,7 @@ app.get('/api/clans', async (req, res) => {
     const response = await axios.get(
       `https://api.clashroyale.com/v1/clans?name=${encodeURIComponent(name)}&limit=10`,
       {
-        headers: { Authorization: `Bearer ${API_KEY}` },
+        headers: { Authorization: `Bearer ${process.env.VITE_CLASH_API_TOKEN}` },
       }
     );
     res.json(response.data);
@@ -41,16 +39,15 @@ app.get('/api/clans', async (req, res) => {
 });
 
 app.get('/api/player/:tag', async (req, res) => {
-  const tag = encodeURIComponent(req.params.tag.replace('#', '')); 
-  
+  const tag = encodeURIComponent(req.params.tag.replace('#', ''));
+
   try {
     const response = await axios.get(
       `https://api.clashroyale.com/v1/players/%23${tag}`,
       {
-        headers: { Authorization: `Bearer ${API_KEY}` },
+        headers: { Authorization: `Bearer ${process.env.VITE_CLASH_API_TOKEN}` },
       }
     );
-
     res.json(response.data);
   } catch (error) {
     console.error('❌ Erro na rota /api/player:', error.message);

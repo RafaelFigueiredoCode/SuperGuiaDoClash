@@ -46,8 +46,17 @@ export default function PlayerDetails(){
 
       return (
         <div style={themeStyles}>
-          <button onClick={toggleTheme} style={{ marginBottom: '20px' }}>
-            Alternar Tema
+          <button onClick={toggleTheme} style={{ 
+        marginBottom: '20px', 
+        marginLeft: '1580px', 
+        cursor: 'pointer',         
+        backgroundColor: 'tomato',
+        color: '#fff',
+        border: 'none',
+        borderRadius: '8px', 
+        padding: '10px 15px',
+         }}>
+            Trocar Tema
           </button>
     
           <div style={{
@@ -91,6 +100,18 @@ export default function PlayerDetails(){
               marginLeft: '20px'
             }}>
               Ver Conquistas
+            </Link>
+            <Link to={`/player/${tag}/favoriteCard`} style={{
+              display: 'inline-block',
+              marginTop: '15px',
+              backgroundColor: theme === 'light' ? '#000' : '#fff',
+              color: theme === 'light' ? '#fff' : '#000',
+              padding: '10px 20px',
+              borderRadius: '8px',
+              textDecoration: 'none',
+              marginLeft: '20px'
+            }}>
+              Ver Carta Favorita
             </Link>
           </div>
         </div>

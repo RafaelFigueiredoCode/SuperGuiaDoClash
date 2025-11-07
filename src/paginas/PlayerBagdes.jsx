@@ -9,7 +9,7 @@ export default function PlayerBadges() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const { theme } = useContext(ThemeContext);
+  const { theme, toggleTheme } = useContext(ThemeContext);
 
   useEffect(() => {
     const fetchBadges = async () => {
@@ -70,7 +70,10 @@ export default function PlayerBadges() {
             }}
           >
             <img
-              src={badge.iconUrls?.large}
+            src={
+            badge.iconUrls?.medium ||
+            badge.iconUrls?.large
+          }
               alt={badge.name}
               style={{
                 width: '80px',

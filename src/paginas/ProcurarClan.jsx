@@ -2,6 +2,7 @@ import React, { useState, useContext } from 'react';
 import axios from 'axios';
 import useFetch from '../components/useFetch.jsx';
 import { ThemeContext } from '../components/ThemeContext';
+import { Link } from 'react-router-dom';
 
 const ProcurarClan = () => {
     const [termo, setTermo] = useState('');
@@ -74,6 +75,18 @@ const ProcurarClan = () => {
               Buscar
             </button>
           </div>
+
+          <Link to={'/'} style={{
+              display: 'inline-block',
+              marginTop: '15px',
+              backgroundColor: theme === 'light' ? '#000' : '#fff',
+              color: theme === 'light' ? '#fff' : '#000',
+              padding: '10px 20px',
+              borderRadius: '8px',
+              textDecoration: 'none'
+            }}>
+              Voltar
+            </Link>
     
           {loading && <p>Carregando...</p>}
           {error && <p style={{ color: 'red' }}>❌ Erro ao buscar dados</p>}

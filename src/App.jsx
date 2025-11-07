@@ -6,6 +6,7 @@ import ProcurarClan from './paginas/ProcurarClan.jsx';
 import ProcurarPlayer from './paginas/ProcurarPlayer.jsx';
 import PlayerDetails from './paginas/PlayerDetails.jsx';
 import PlayerBadges from './paginas/PlayerBagdes.jsx';
+import FavoriteCard from './paginas/FavoriteCard.jsx';
 
 const App = () => (
   <Router>
@@ -16,6 +17,7 @@ const App = () => (
         <Route path="/procurar/player" element={<ProcurarPlayer/>} />
         <Route path="/player/:tag" element={<PlayerDetails/>} />
         <Route path="/player/:tag/badges" element={<PlayerBadges/>} />
+        <Route path="/player/:tag/favoriteCard" element={<FavoriteCard/>} />
       </Routes>
   </Router>
 );

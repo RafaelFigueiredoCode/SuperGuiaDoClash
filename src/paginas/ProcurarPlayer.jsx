@@ -2,6 +2,7 @@ import React, { useState, useContext } from 'react';
 import useFetch from '../components/useFetch.jsx';
 import { ThemeContext } from '../components/ThemeContext';
 import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const Procurardata = () => {
   const [termo, setTermo] = useState('');
@@ -41,6 +42,18 @@ const Procurardata = () => {
                 transition: 'all 0.3s ease',
               }}
             >
+          <button onClick={toggleTheme} style={{ 
+        marginBottom: '20px', 
+        marginLeft: '1580px', 
+        cursor: 'pointer',         
+        backgroundColor: 'tomato',
+        color: '#fff',
+        border: 'none',
+        borderRadius: '8px', 
+        padding: '10px 15px',
+         }}>
+            Trocar Tema
+          </button>
               <h1 
               style={{
                 marginLeft: '-85px'
@@ -77,7 +90,17 @@ const Procurardata = () => {
         
               {loading && <p>Carregando...</p>}
               {error && <p style={{ color: 'red' }}>❌ Erro ao buscar dados</p>}
-        
+         <Link to={'/'} style={{
+              display: 'inline-block',
+              marginTop: '15px',
+              backgroundColor: theme === 'light' ? '#000' : '#fff',
+              color: theme === 'light' ? '#fff' : '#000',
+              padding: '10px 20px',
+              borderRadius: '8px',
+              textDecoration: 'none'
+            }}>
+              Voltar
+            </Link>
               {data?.tag && (
     <div style= {{backgroundColor: theme === 'light' ? '#fff' : '#333',
     color: theme === 'light' ? '#000' : '#fff',
@@ -93,20 +116,8 @@ const Procurardata = () => {
       <p><strong>Nível:</strong> {data.expLevel}</p>
       <p><strong>Trofeus atuais:</strong> {data.trophies}</p>
       <p><strong>Melhor pontuação:</strong> {data.bestTrophies}</p>
-      <p><strong>Vitórias:</strong> {data.wins}</p>
-      <p><strong>Derrotas:</strong> {data.losses}</p>
-      <p><strong>3 coroas:</strong> {data.threeCrownWins}</p>
-      <p><strong>Doações totais:</strong> {data.totalDonations}</p>
     </div>
 
-    <div className="mt-4 p-3 bg-gray-800 rounded-lg">
-      <p><strong>Clã:</strong> {data.clan.name}</p>
-      <p><strong>Tag:</strong> {data.clan.tag}</p>
-    </div>
-
-    <div className="mt-3 text-sm text-gray-400">
-      <p><strong>Arena:</strong> {data.arena.name}</p>
-    </div>
     <button
     onClick={() => navigate(`/player/${data.tag.replace('#', '')}`)}
     >ver mais</button>
