@@ -214,11 +214,25 @@ const CardsList = () => {
       borderRadius: '8px',
       padding: '10px 20px',
       cursor: 'pointer',
-      marginRight: '20px',
+      marginRight: '15px',
     }}
     onClick={() => navigate('/procurar/player')}
     >
     Procurar Jogador
+    </button>
+    <button
+      style={{
+        backgroundColor: 'tomato',
+        color: '#fff',
+        border: 'none',
+        borderRadius: '8px',
+        padding: '10px 20px',
+        cursor: 'pointer',
+        marginRight: '5px',
+      }}
+      onClick={() => navigate('/locations/:locationId/rankings/players')}
+    >
+      Ver Top Global de Países
     </button>
   </div>
 </div>

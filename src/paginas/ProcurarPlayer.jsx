@@ -1,13 +1,11 @@
 import React, { useState, useContext } from 'react';
 import useFetch from '../components/useFetch.jsx';
 import { ThemeContext } from '../components/ThemeContext';
-import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
 const Procurardata = () => {
   const [termo, setTermo] = useState('');
   const [url, setUrl] = useState(null);
-  const navigate = useNavigate();
 
   const { data, loading, error } = useFetch(url);
   const { theme, toggleTheme } = useContext(ThemeContext);

@@ -94,6 +94,33 @@ app.get('/api/player/:tag/battlelog', async (req, res) => {
   }
 });
 
+
+app.get('/api/locations/:locationId/rankings/players', async (req, res) => {
+  const { locationId } = req.params;
+  const limit = req.query.limit || 50;
+
+  try {
+    const response = await axios.get(
+      `https://api.clashroyale.com/v1/locations/${locationId}/rankings/players?limit=${limit}`,
+      {
+        headers: { Authorization: `Bearer ${process.env.VITE_CLASH_API_TOKEN}` },
+      }
+    );
+
+    console.log("✅ Dados recebidos:", response.data.items?.length);
+    res.json(response.data);
+  } catch (err) {
+    console.error("❌ Erro ao buscar ranking:");
+    console.error("Status:", err.response?.status);
+    console.error("Data:", err.response?.data);
+    console.error("Headers:", err.response?.headers);
+
+    res.status(err.response?.status || 500).json({
+      error: err.response?.data || err.message,
+    });
+  }
+});
+
 const PORT = 3001;
 app.listen(PORT, '0.0.0.0', () => {
   console.log(`✅ API rodando em http://127.0.0.1:${PORT}`);

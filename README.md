@@ -14,13 +14,15 @@ Crie uma conta ou entre em uma já existente
 Feito isso, aperte no botão no canto superior direito e vá em 'My Account'
 Clique em 'Create New Key', dê um nome para sua chave, coloque algo na descrição e forneça o endereço de IPv4 usando este link 
 ---> https://www.iplocation.net/myip
-Crie sua chave e depois clique nela novamente para copiar seu token e colar no arquivo serverApi.jsx dentro da pasta server
-Cole dentro das aspas dessa linha --> const API_KEY = ''
+Crie sua chave e depois crie um arquivo '.env' na raiz do projeto com essa linha, colocando o token da chave dentro das aspas
+
+VITE_CLASH_API_TOKEN=''   
 
 Feito isso abra o terminal 'Ctrl + J' e rode este comando: 
 node src/server/serverApi.cjs
 se aparecer --> ✅ API rodando em http://127.0.0.1:3001 
-está tudo certo e podes até acessar o endereço de site acima para ver o JSON da API
+é porque está tudo certo
+
 Agora abra outro terminal (sem fechar o anterior) e dê os comandos respectivamente:
 cd src
 npm run dev

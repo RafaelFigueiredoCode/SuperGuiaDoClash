@@ -10,6 +10,7 @@ import FavoriteCard from './paginas/FavoriteCard.jsx';
 import PlayerBattleLog from './paginas/PlayerBattleLog.jsx';
 import ClanDetails from './paginas/ClanDetails.jsx';
 import ClanMembers from './paginas/ClanMembers.jsx';
+import LeaderboardPage from './paginas/Leaderboard.jsx';
 
 const App = () => (
   <Router>
@@ -24,6 +25,7 @@ const App = () => (
         <Route path="/player/:tag/battleLog" element={<PlayerBattleLog/>} />
         <Route path="/clan/:tag" element={<ClanDetails />} />
         <Route path="/clan/:tag/members" element={<ClanMembers/>} />
+        <Route path="/locations/:locationId/rankings/players" element={<LeaderboardPage/>} />
       </Routes>
   </Router>
 );
