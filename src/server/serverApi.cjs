@@ -94,32 +94,48 @@ app.get('/api/player/:tag/battlelog', async (req, res) => {
   }
 });
 
-
-app.get('/api/locations/:locationId/rankings/players', async (req, res) => {
-  const { locationId } = req.params;
-  const limit = req.query.limit || 50;
-
+app.get('/api/locations', async (req, res) => {
   try {
-    const response = await axios.get(
-      `https://api.clashroyale.com/v1/locations/${locationId}/rankings/players?limit=${limit}`,
-      {
-        headers: { Authorization: `Bearer ${process.env.VITE_CLASH_API_TOKEN}` },
-      }
-    );
-
-    console.log("✅ Dados recebidos:", response.data.items?.length);
+    const response = await axios.get('https://api.clashroyale.com/v1/locations', {
+      headers: { Authorization: `Bearer ${process.env.VITE_CLASH_API_TOKEN}` },
+    });
     res.json(response.data);
   } catch (err) {
-    console.error("❌ Erro ao buscar ranking:");
+    console.error("❌ Erro ao buscar localizações:");
     console.error("Status:", err.response?.status);
     console.error("Data:", err.response?.data);
-    console.error("Headers:", err.response?.headers);
-
     res.status(err.response?.status || 500).json({
       error: err.response?.data || err.message,
     });
   }
 });
+
+
+app.get('/api/locations/:locationId/rankings/players', async (req, res) => {
+  const { locationId } = req.params;
+  const limit = req.query.limit || 50;
+
+  console.log("📦 locationId recebido:", locationId);
+
+  try {
+    const url = `https://api.clashroyale.com/v1/locations/${locationId}/rankings/players?limit=${limit}`;
+    console.log("🌍 Buscando:", url);
+    const response = await axios.get(url, {
+      headers: { Authorization: `Bearer ${process.env.VITE_CLASH_API_TOKEN}` },
+    });
+
+    console.log("✅ Itens recebidos:", response.data.items?.length);
+    res.json(response.data);
+  } catch (err) {
+    console.error("❌ Erro ao buscar ranking:");
+    console.error("Status:", err.response?.status);
+    console.error("Data:", err.response?.data);
+    res.status(err.response?.status || 500).json({
+      error: err.response?.data || err.message,
+    });
+  }
+});
+
 
 const PORT = 3001;
 app.listen(PORT, '0.0.0.0', () => {

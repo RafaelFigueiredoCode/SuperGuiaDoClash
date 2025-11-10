@@ -123,6 +123,21 @@ return (
         </p>
       </div>
     )}
+          <div style={{ textAlign: 'center', marginTop: '30px' }}>
+            <Link
+              to={`/player/${tag}`}
+              style={{
+                display: 'inline-block',
+                backgroundColor: theme === 'light' ? '#000' : '#fff',
+                color: theme === 'light' ? '#fff' : '#000',
+                padding: '10px 20px',
+                borderRadius: '8px',
+                textDecoration: 'none',
+              }}
+            >
+              Voltar
+            </Link>
+          </div>
   </div>
 );
 

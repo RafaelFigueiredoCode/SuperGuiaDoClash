@@ -2,6 +2,7 @@ import React, { useEffect, useState, useContext } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import axios from 'axios';
 import { ThemeContext } from '../components/ThemeContext';
+import { useNavigate } from 'react-router-dom';
 
 export default function ClanMembers() {
   const { tag } = useParams();
@@ -9,6 +10,7 @@ export default function ClanMembers() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const { theme } = useContext(ThemeContext);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchMembers = async () => {
@@ -54,6 +56,7 @@ export default function ClanMembers() {
       >
         {members.map((member) => (
           <div
+          onClick={() => navigate(`/player/${member.tag.replace('#', '')}`)}
             key={member.tag}
             style={{
               border: theme === 'light' ? '1px solid #000' : '1px solid #fff',

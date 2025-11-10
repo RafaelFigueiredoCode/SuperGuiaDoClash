@@ -2,83 +2,76 @@ import React, { useEffect, useState, useContext } from 'react';
 import axios from 'axios';
 import { ThemeContext } from '../components/ThemeContext';
 
-export default function LeaderboardPage() {
-  const { theme, toggleTheme } = useContext(ThemeContext);
+export default function Leaderboard() {
   const [locations, setLocations] = useState([]);
-  const [selectedLocation, setSelectedLocation] = useState('');
-  const [ranking, setRanking] = useState([]);
+  const [selectedLocation, setSelectedLocation] = useState('57000000'); // Global por padrão
+  const [players, setPlayers] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const { theme } = useContext(ThemeContext);
 
-  const themeStyles = {
-    backgroundColor: theme === 'light' ? '#f5f5f5' : '#222',
-    color: theme === 'light' ? '#000' : '#fff',
-    minHeight: '100vh',
-    padding: '20px',
-    transition: 'all 0.3s ease',
-  };
-
-  // 🔹 Busca as localizações ao carregar
+  // 🎯 Carregar as localizações
   useEffect(() => {
-    const fetchLocations = async () => {
-      try {
-        const res = await axios.get('/api/locations');
-        setLocations(res.data.items);
-      } catch (err) {
-        setError('Erro ao carregar localizações');
-      }
-    };
-    fetchLocations();
+    axios.get('http://localhost:3001/api/locations')
+      .then((res) => setLocations(res.data.items))
+      .catch((err) => console.error('Erro ao buscar localizações:', err));
   }, []);
 
-  // 🔹 Busca o ranking do país selecionado
-  const handleSearch = async () => {
+  // 🏆 Buscar ranking quando a localização mudar
+  useEffect(() => {
     if (!selectedLocation) return;
-    setLoading(true);
-    setError('');
-    setRanking([]);
 
-    try {
-      const res = await axios.get(`/api/locations/${selectedLocation}/rankings/players`);
-      setRanking(res.data.items);
-      if (res.data.items.length === 0) setError('Nenhum jogador encontrado (ranking vazio).');
-    } catch (err) {
-      setError('Erro ao buscar ranking.');
-    } finally {
-      setLoading(false);
-    }
+    const fetchRankings = async () => {
+      setLoading(true);
+      setError('');
+
+      try {
+        const response = await axios.get(
+          `http://localhost:3001/api/locations/${selectedLocation}/rankings/players`
+        );
+
+        if (response.data.items.length === 0) {
+          // 🔍 Caso vazio — API retornou lista vazia
+          setPlayers([]);
+          setError('Os placares locais estão temporariamente desativados pela Supercell.');
+        } else {
+          setPlayers(response.data.items);
+        }
+
+      } catch (err) {
+        console.error('Erro ao buscar ranking:', err);
+        setError('Não foi possível carregar o ranking.');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchRankings();
+  }, [selectedLocation]);
+
+  const themeStyles = {
+    backgroundColor: theme === 'light' ? '#f5f5f5' : '#121212',
+    color: theme === 'light' ? '#000' : '#fff',
+    minHeight: '100vh',
+    padding: '30px',
+    transition: 'all 0.3s ease',
   };
 
   return (
     <div style={themeStyles}>
-      <button
-        onClick={toggleTheme}
-        style={{
-          backgroundColor: theme === 'light' ? '#000' : '#fff',
-          color: theme === 'light' ? '#fff' : '#000',
-          borderRadius: '8px',
-          padding: '10px 15px',
-          border: 'none',
-          cursor: 'pointer',
-          marginBottom: '20px'
-        }}
-      >
-        Trocar Tema
-      </button>
+      <h2>🏅 Leaderboard</h2>
 
-      <h1>🌍 Leaderboard</h1>
-
-      {/* 🔸 Seletor de localizações */}
+      {/* Seleção de localização */}
       <select
         value={selectedLocation}
         onChange={(e) => setSelectedLocation(e.target.value)}
         style={{
           padding: '10px',
+          marginTop: '10px',
           borderRadius: '8px',
-          marginRight: '10px'
+          border: '1px solid gray'
         }}
       >
-        <option value="">Selecione uma região...</option>
         {locations.map((loc) => (
           <option key={loc.id} value={loc.id}>
             {loc.name}
@@ -86,42 +79,36 @@ export default function LeaderboardPage() {
         ))}
       </select>
 
-      <button
-        onClick={handleSearch}
-        style={{
-          padding: '10px 15px',
-          borderRadius: '8px',
-          backgroundColor: '#007bff',
-          color: 'white',
-          border: 'none',
-          cursor: 'pointer'
-        }}
-      >
-        Buscar Ranking
-      </button>
+      {loading && <p>Carregando ranking...</p>}
+      {error && <p style={{ color: 'gray', marginTop: '15px' }}>⚠️ {error}</p>}
 
-      {loading && <p>Carregando...</p>}
-      {error && <p style={{ color: 'tomato' }}>{error}</p>}
-
-      {/* 🔸 Lista do ranking */}
-      <div style={{ marginTop: '20px' }}>
-        {ranking.map((player, index) => (
-          <div
-            key={player.tag}
-            style={{
-              backgroundColor: theme === 'light' ? '#fff' : '#333',
-              padding: '10px',
-              marginBottom: '10px',
-              borderRadius: '10px',
-              boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
-            }}
-          >
-            <h3>#{player.rank} — {player.name}</h3>
-            <p>Troféus: 🏆 {player.trophies}</p>
-            {player.clan && <p>Clã: {player.clan.name}</p>}
-          </div>
-        ))}
-      </div>
+      {/* Exibir lista se houver */}
+      {!loading && players.length > 0 && (
+        <div
+          style={{
+            marginTop: '20px',
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
+            gap: '15px',
+          }}
+        >
+          {players.map((player) => (
+            <div
+              key={player.tag}
+              style={{
+                border: theme === 'light' ? '1px solid #000' : '1px solid #fff',
+                borderRadius: '10px',
+                padding: '15px',
+              }}
+            >
+              <h3>{player.name}</h3>
+              <p>Tag: {player.tag}</p>
+              <p>Troféus: {player.trophies}</p>
+              <p>Posição: #{player.rank}</p>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
