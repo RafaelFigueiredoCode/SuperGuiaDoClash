@@ -13,7 +13,7 @@ const Procurardata = () => {
   console.log('🔎 Buscando:', url);
 
   const handleBuscar = () => {
-    if (!termo.trim()) return;
+    if (!termo.trim()) return ;
     setUrl(`${API_URL}/api/player/${encodeURIComponent(termo.replace('#', ''))}`);
   };
     const themeStyles = {
