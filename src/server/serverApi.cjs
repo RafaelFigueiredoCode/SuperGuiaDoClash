@@ -137,7 +137,7 @@ app.get('/api/locations/:locationId/rankings/players', async (req, res) => {
 });
 
 
-const PORT = process.env.PORT || 3001;
-app.listen(PORT, () => {
-  console.log(`Servidor rodando na porta ${PORT}`);
+const PORT = 3001;
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`✅ API rodando em http://127.0.0.1:${PORT}`);
 });
