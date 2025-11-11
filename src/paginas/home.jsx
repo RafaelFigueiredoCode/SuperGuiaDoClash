@@ -1,5 +1,4 @@
 import React, { useContext } from 'react';
-import axios from 'axios';
 import Card from '../components/card.jsx';
 import { ThemeContext } from '../components/ThemeContext';
 import useFetch from '../components/useFetch.jsx';
@@ -38,10 +37,8 @@ const CardsList = () => {
     "Royal Ghost": "Fantasma Real",
     "Inferno Dragon": "Dragão Infernal",
     "Lumberjack": "Lenhador",
-    "Mega Knight": "Mega Cavaleiro",
     "Electro Wizard": "Mago Elétrico",
     "Bandit": "Bandida",
-    "Zappies": "Zappies",
     "Bats": "Morcegos",
     "Night Witch": "Bruxa Sombria",
     "Goblin Hut": "Cabana de Goblins",
@@ -129,13 +126,6 @@ const CardsList = () => {
     'Lightning': 'Relâmpago',
     'Void': 'Vácuo',
     'Spirit Empress': 'Imperatriz Espiritual'
-  };
-
-  const raridadesPTBR = {
-    "common": "Comum",
-    "rare": "Rara",
-    "epic": "Épica",
-    "legendary": "Lendária"
   };
 
   const { theme, toggleTheme } = useContext(ThemeContext);

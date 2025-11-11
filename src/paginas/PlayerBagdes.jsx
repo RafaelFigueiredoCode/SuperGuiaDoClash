@@ -9,7 +9,7 @@ export default function PlayerBadges() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const { theme, toggleTheme } = useContext(ThemeContext);
+  const { theme } = useContext(ThemeContext);
 
   useEffect(() => {
     const fetchBadges = async () => {

@@ -34,7 +34,6 @@ export default function PlayerDetails() {
   if (error) return <p>{error}</p>;
   if (!player) return <p>Player não encontrado.</p>;
 
-  // 🔢 Cálculo das estatísticas
   const winRate = player.battleCount > 0 
     ? ((player.wins / player.battleCount) * 100).toFixed(2)
     : 0;

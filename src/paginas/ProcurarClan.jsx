@@ -1,5 +1,4 @@
 import React, { useState, useContext } from 'react';
-import axios from 'axios';
 import useFetch from '../components/useFetch.jsx';
 import { ThemeContext } from '../components/ThemeContext';
 import { Link } from 'react-router-dom';
