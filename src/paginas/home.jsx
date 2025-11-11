@@ -1,5 +1,4 @@
 import React, { useContext } from 'react';
-import axios from 'axios';
 import Card from '../components/card.jsx';
 import { ThemeContext } from '../components/ThemeContext';
 import useFetch from '../components/useFetch.jsx';
@@ -41,7 +40,6 @@ const CardsList = () => {
     "Mega Knight": "Mega Cavaleiro",
     "Electro Wizard": "Mago Elétrico",
     "Bandit": "Bandida",
-    "Zappies": "Zappies",
     "Bats": "Morcegos",
     "Night Witch": "Bruxa Sombria",
     "Goblin Hut": "Cabana de Goblins",
@@ -96,7 +94,6 @@ const CardsList = () => {
     'Mega Minion': 'Megasservo',
     'Ice Golem': 'Golem de Gelo',
     'Elite Barbarians': 'Bárbaros de Elite',
-    'Mega Knight': 'Megacavaleiro',
     'Zappies': 'Eletrocutadores',
     'Rascals': 'Recrutas',
     'Ram Rider': 'Domadora de Carneiro',
@@ -131,15 +128,9 @@ const CardsList = () => {
     'Spirit Empress': 'Imperatriz Espiritual'
   };
 
-  const raridadesPTBR = {
-    "common": "Comum",
-    "rare": "Rara",
-    "epic": "Épica",
-    "legendary": "Lendária"
-  };
 
   const { theme, toggleTheme } = useContext(ThemeContext);
-  const API_URL = 'https://superguiadoclash.onrender.com';
+  const API_URL = 'https://superguiadoclash.up.railway.app'
   const navigate = useNavigate();
 
   const { data: cards, error, loading } = useFetch(`${API_URL}/api/cards`);

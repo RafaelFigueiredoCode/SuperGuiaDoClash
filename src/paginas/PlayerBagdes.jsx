@@ -8,8 +8,8 @@ export default function PlayerBadges() {
   const [playerData, setPlayerData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const { theme, toggleTheme } = useContext(ThemeContext);
-  const API_URL = 'https://superguiadoclash.onrender.com';
+  const { theme } = useContext(ThemeContext);
+  const API_URL = 'https://superguiadoclash.up.railway.app'
 
   useEffect(() => {
     const fetchBadges = async () => {

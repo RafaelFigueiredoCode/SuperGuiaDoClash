@@ -9,7 +9,7 @@ export default function PlayerDetails() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const { theme, toggleTheme } = useContext(ThemeContext);
-  const API_URL = 'https://superguiadoclash.onrender.com';
+  const API_URL = 'https://superguiadoclash.up.railway.app'
 
   useEffect(() => {
     const fetchPlayer = async () => {

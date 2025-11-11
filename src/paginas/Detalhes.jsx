@@ -43,7 +43,6 @@ export default function CardDetails() {
     "Mega Knight": "Mega Cavaleiro",
     "Electro Wizard": "Mago Elétrico",
     "Bandit": "Bandida",
-    "Zappies": "Zappies",
     "Bats": "Morcegos",
     "Night Witch": "Bruxa Sombria",
     "Goblin Hut": "Cabana de Goblins",
@@ -98,7 +97,6 @@ export default function CardDetails() {
     'Mega Minion': 'Megasservo',
     'Ice Golem': 'Golem de Gelo',
     'Elite Barbarians': 'Bárbaros de Elite',
-    'Mega Knight': 'Megacavaleiro',
     'Zappies': 'Eletrocutadores',
     'Rascals': 'Recrutas',
     'Ram Rider': 'Domadora de Carneiro',
@@ -141,7 +139,7 @@ export default function CardDetails() {
   };
 
   const { theme, toggleTheme } = useContext(ThemeContext);
-  const API_URL = 'https://superguiadoclash.onrender.com';
+  const API_URL = 'https://superguiadoclash.up.railway.app'
 
 
   useEffect(() => {
