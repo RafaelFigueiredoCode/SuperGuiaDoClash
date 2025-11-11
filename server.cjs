@@ -7,7 +7,7 @@ const app = express();
 app.use(cors());
 
 // 🔹 Teste rápido
-app.get('/a', (req, res) => {
+app.get('/', (req, res) => {
   res.json({ msg: 'Olá mundo' });
 });
 
