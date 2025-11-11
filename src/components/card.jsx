@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 
-export default function Card({ card, nomesPTBR }) {
+export default function Card({ card, nomesPTBR, raridadesPTBR }) {
   const navigate = useNavigate();
 
   return (

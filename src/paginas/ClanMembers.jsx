@@ -11,7 +11,7 @@ export default function ClanMembers() {
   const [error, setError] = useState(null);
   const { theme } = useContext(ThemeContext);
   const navigate = useNavigate();
-  const API_URL = 'https://superguiadoclash.up.railway.app'
+  const API_URL = 'https://superguiadoclash.onrender.com';
 
   useEffect(() => {
     const fetchMembers = async () => {

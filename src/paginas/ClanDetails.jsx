@@ -9,7 +9,7 @@ export default function ClanDetails() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const { theme, toggleTheme } = useContext(ThemeContext);
-  const API_URL = 'https://superguiadoclash.up.railway.app'
+  const API_URL = 'https://superguiadoclash.onrender.com';
 
 
   useEffect(() => {
@@ -40,7 +40,7 @@ return (
     style={{
       display: 'flex',
       justifyContent: 'center',
-      alignItems: 'center', 
+      alignItems: 'center', // centraliza verticalmente
       color: theme === 'light' ? '#000' : '#fff',
       backgroundColor: theme === 'light' ? '#f5f5f5' : '#222',
       minHeight: '100vh',

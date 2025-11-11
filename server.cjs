@@ -4,9 +4,9 @@ const axios = require('axios');
 require('dotenv').config(); 
 const dns = require("dns");
 const os = require("os");
+
 const app = express();
 app.use(cors());
-
 
 app.get('/', (req, res) => {
   res.json({ msg: '✅ API do SuperGuia está online!' });
@@ -20,9 +20,7 @@ app.get('/api/cards', async (req, res) => {
     res.json(response.data);
   } catch (error) {
     console.error('❌ Erro na API Clash:', error.response?.data || error.message);
-    res
-      .status(error.response?.status || 500)
-      .json({ error: error.response?.data?.message || error.message });
+    res.status(error.response?.status || 500).json({ error: error.response?.data?.message || error.message });
   }
 });
 
@@ -35,7 +33,7 @@ app.get('/api/clans', async (req, res) => {
     );
     res.json(response.data);
   } catch (error) {
-    console.error('❌ Erro na rota /api/clans:', error.response?.data || error.message);
+    console.error('❌ Erro na rota /api/clans:', error.message);
     res.status(error.response?.status || 500).json({ error: error.message });
   }
 });

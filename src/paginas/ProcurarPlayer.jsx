@@ -8,7 +8,7 @@ const Procurardata = () => {
   const [url, setUrl] = useState(null);
   const { data, loading, error } = useFetch(url);
   const { theme, toggleTheme } = useContext(ThemeContext);
-  const API_URL = 'https://superguiadoclash.up.railway.app'
+  const API_URL = 'https://superguiadoclash.onrender.com';
 
   console.log('🔎 Buscando:', url);
 

@@ -1,4 +1,5 @@
 import React, { useState, useContext } from 'react';
+import axios from 'axios';
 import useFetch from '../components/useFetch.jsx';
 import { ThemeContext } from '../components/ThemeContext';
 import { Link } from 'react-router-dom';
@@ -11,7 +12,7 @@ const ProcurarClan = () => {
 
     const { theme, toggleTheme } = useContext(ThemeContext);
 
-    const API_URL = 'https://superguiadoclash.up.railway.app'
+    const API_URL = 'https://superguiadoclash.onrender.com';
   
     const handleBuscar = () => {
         if (!termo.trim()) return;

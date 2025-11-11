@@ -4,12 +4,12 @@ import { ThemeContext } from '../components/ThemeContext';
 
 export default function Leaderboard() {
   const [locations, setLocations] = useState([]);
-  const [selectedLocation, setSelectedLocation] = useState('57000000');
+  const [selectedLocation, setSelectedLocation] = useState('57000000'); // Global por padrão
   const [players, setPlayers] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const { theme } = useContext(ThemeContext);
-  const API_URL = 'https://superguiadoclash.up.railway.app'
+  const API_URL = 'https://superguiadoclash.onrender.com';
 
   // 🎯 Carregar as localizações
   useEffect(() => {
