@@ -6,10 +6,12 @@ require('dotenv').config();
 const app = express();
 app.use(cors());
 
+// 🔹 Teste rápido
 app.get('/', (req, res) => {
-  res.json({ msg: '✅ API do SuperGuia está online!' });
+  res.json({ msg: 'Olá mundo' });
 });
 
+// 🔹 Buscar todas as cartas
 app.get('/api/cards', async (req, res) => {
   try {
     const response = await axios.get('https://api.clashroyale.com/v1/cards', {
@@ -22,6 +24,7 @@ app.get('/api/cards', async (req, res) => {
   }
 });
 
+// 🔹 Buscar clãs por nome
 app.get('/api/clans', async (req, res) => {
   const { name } = req.query;
   try {
@@ -36,6 +39,7 @@ app.get('/api/clans', async (req, res) => {
   }
 });
 
+// 🔹 Buscar detalhes de um clã
 app.get('/api/clan/:tag', async (req, res) => {
   const { tag } = req.params;
   try {
@@ -49,6 +53,7 @@ app.get('/api/clan/:tag', async (req, res) => {
   }
 });
 
+// 🔹 Buscar membros do clã
 app.get('/api/clan/:tag/members', async (req, res) => {
   const { tag } = req.params;
   try {
@@ -62,6 +67,7 @@ app.get('/api/clan/:tag/members', async (req, res) => {
   }
 });
 
+// 🔹 Buscar informações do jogador
 app.get('/api/player/:tag', async (req, res) => {
   const tag = encodeURIComponent(req.params.tag.replace('#', ''));
   try {
@@ -76,6 +82,7 @@ app.get('/api/player/:tag', async (req, res) => {
   }
 });
 
+// 🔹 Buscar histórico de batalhas do jogador
 app.get('/api/player/:tag/battlelog', async (req, res) => {
   const { tag } = req.params;
   try {
@@ -90,6 +97,7 @@ app.get('/api/player/:tag/battlelog', async (req, res) => {
   }
 });
 
+// 🔹 Buscar localizações
 app.get('/api/locations', async (req, res) => {
   try {
     const response = await axios.get('https://api.clashroyale.com/v1/locations', {
@@ -102,16 +110,21 @@ app.get('/api/locations', async (req, res) => {
   }
 });
 
+// 🔹 Buscar ranking por localização
 app.get('/api/locations/:locationId/rankings/players', async (req, res) => {
   const { locationId } = req.params;
   const limit = req.query.limit || 50;
 
+  console.log("📦 locationId recebido:", locationId);
+
   try {
     const url = `https://api.clashroyale.com/v1/locations/${locationId}/rankings/players?limit=${limit}`;
+    console.log("🌍 Buscando:", url);
     const response = await axios.get(url, {
       headers: { Authorization: `Bearer ${process.env.CLASH_API_TOKEN}` },
     });
 
+    console.log("✅ Itens recebidos:", response.data.items?.length);
     res.json(response.data);
   } catch (err) {
     console.error("❌ Erro ao buscar ranking:", err.response?.data || err.message);
@@ -119,7 +132,8 @@ app.get('/api/locations/:locationId/rankings/players', async (req, res) => {
   }
 });
 
+// 🔹 Porta dinâmica (Render usa variável PORT)
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
-  console.log(`🚀 Servidor rodando na porta ${PORT}`);
+  console.log(`Servidor rodando na porta ${PORT}`);
 });

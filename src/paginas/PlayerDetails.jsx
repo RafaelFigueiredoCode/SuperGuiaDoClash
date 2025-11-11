@@ -8,13 +8,13 @@ export default function PlayerDetails() {
   const [player, setPlayer] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
   const { theme, toggleTheme } = useContext(ThemeContext);
-  const API_URL = 'https://superguiadoclash.onrender.com';
 
   useEffect(() => {
     const fetchPlayer = async () => {
       try {
-        const response = await axios.get(`${API_URL}/api/player/${tag}`, {
+        const response = await axios.get(`http://localhost:3001/api/player/${tag}`, {
           headers: {
             Authorization: `Bearer ${import.meta.env.VITE_CLASH_API_TOKEN}`
           }
@@ -34,6 +34,7 @@ export default function PlayerDetails() {
   if (error) return <p>{error}</p>;
   if (!player) return <p>Player não encontrado.</p>;
 
+  // 🔢 Cálculo das estatísticas
   const winRate = player.battleCount > 0 
     ? ((player.wins / player.battleCount) * 100).toFixed(2)
     : 0;

@@ -141,13 +141,12 @@ export default function CardDetails() {
   };
 
   const { theme, toggleTheme } = useContext(ThemeContext);
-  const API_URL = 'https://superguiadoclash.onrender.com';
 
 
   useEffect(() => {
     const fetchCard = async () => {
       try {
-        const response = await axios.get(`${API_URL}/api/cards`);
+        const response = await axios.get('/api/cards');
         const foundCard = response.data.items.find(c => c.id.toString() === id);
         setCard(foundCard || null);
       } catch (err) {

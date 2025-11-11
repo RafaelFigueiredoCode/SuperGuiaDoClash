@@ -9,11 +9,10 @@ export default function Leaderboard() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const { theme } = useContext(ThemeContext);
-  const API_URL = 'https://superguiadoclash.onrender.com';
 
   // 🎯 Carregar as localizações
   useEffect(() => {
-    axios.get(`${API_URL}/api/locations`)
+    axios.get('http://localhost:3001/api/locations')
       .then((res) => setLocations(res.data.items))
       .catch((err) => console.error('Erro ao buscar localizações:', err));
   }, []);
@@ -25,12 +24,14 @@ export default function Leaderboard() {
     const fetchRankings = async () => {
       setLoading(true);
       setError('');
+
       try {
         const response = await axios.get(
-          `${API_URL}/api/locations/${selectedLocation}/rankings/players`
+          `http://localhost:3001/api/locations/${selectedLocation}/rankings/players`
         );
 
         if (response.data.items.length === 0) {
+          // 🔍 Caso vazio — API retornou lista vazia
           setPlayers([]);
           setError('Os placares locais estão temporariamente desativados pela Supercell.');
         } else {
@@ -60,6 +61,7 @@ export default function Leaderboard() {
     <div style={themeStyles}>
       <h2>🏅 Leaderboard</h2>
 
+      {/* Seleção de localização */}
       <select
         value={selectedLocation}
         onChange={(e) => setSelectedLocation(e.target.value)}
@@ -80,6 +82,7 @@ export default function Leaderboard() {
       {loading && <p>Carregando ranking...</p>}
       {error && <p style={{ color: 'gray', marginTop: '15px' }}>⚠️ {error}</p>}
 
+      {/* Exibir lista se houver */}
       {!loading && players.length > 0 && (
         <div
           style={{

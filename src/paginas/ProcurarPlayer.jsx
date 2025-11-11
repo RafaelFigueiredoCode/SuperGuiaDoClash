@@ -6,15 +6,14 @@ import { Link } from 'react-router-dom';
 const Procurardata = () => {
   const [termo, setTermo] = useState('');
   const [url, setUrl] = useState(null);
+
   const { data, loading, error } = useFetch(url);
   const { theme, toggleTheme } = useContext(ThemeContext);
-  const API_URL = 'https://superguiadoclash.onrender.com';
-
   console.log('🔎 Buscando:', url);
 
   const handleBuscar = () => {
     if (!termo.trim()) return;
-    setUrl(`${API_URL}/api/player/${encodeURIComponent(termo.replace('#', ''))}`);
+    setUrl(`http://localhost:3001/api/player/${encodeURIComponent(termo.replace('#', ''))}`);
   };
     const themeStyles = {
         backgroundColor: theme === 'light' ? '#f5f5f5' : '#121212',
