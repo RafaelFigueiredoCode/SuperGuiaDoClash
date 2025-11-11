@@ -2,8 +2,6 @@ const express = require('express');
 const cors = require('cors');
 const axios = require('axios');
 require('dotenv').config(); 
-const dns = require("dns");
-const os = require("os");
 
 const app = express();
 app.use(cors());
@@ -122,10 +120,6 @@ app.get('/api/locations/:locationId/rankings/players', async (req, res) => {
 });
 
 const PORT = process.env.PORT || 3001;
-dns.lookup(os.hostname(), (err, addr) => {
-  if (err) console.error("❌ Erro ao detectar IP:", err);
-  else console.log("🌍 IP público detectado:", addr);
-});
 app.listen(PORT, () => {
   console.log(`🚀 Servidor rodando na porta ${PORT}`);
 });
