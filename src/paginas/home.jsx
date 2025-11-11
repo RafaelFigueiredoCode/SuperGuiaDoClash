@@ -139,10 +139,10 @@ const CardsList = () => {
   };
 
   const { theme, toggleTheme } = useContext(ThemeContext);
-
+  const API_URL = 'https://superguiadoclash.onrender.com';
   const navigate = useNavigate();
 
-  const { data: cards, error, loading } = useFetch('api/cards');
+  const { data: cards, error, loading } = useFetch(`${API_URL}/api/cards`);
 
   if (loading) return <p>Carregando cartas...</p>;
   if (error) return <p>{error}</p>;

@@ -8,13 +8,13 @@ export default function PlayerBattleLog() {
   const [battleLog, setBattleLog] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
   const { theme, toggleTheme } = useContext(ThemeContext);
+  const API_URL = 'https://superguiadoclash.onrender.com';
 
   useEffect(() => {
     const fetchBattleLog = async () => {
       try {
-        const response = await axios.get(`http://localhost:3001/api/player/${tag}/battlelog`, {
+        const response = await axios.get(`${API_URL}/api/player/${tag}/battlelog`, {
           headers: {
             Authorization: `Bearer ${import.meta.env.VITE_CLASH_API_TOKEN}`,
           },

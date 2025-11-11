@@ -11,10 +11,12 @@ const ProcurarClan = () => {
     const { data, loading, error } = useFetch(url);
 
     const { theme, toggleTheme } = useContext(ThemeContext);
+
+    const API_URL = 'https://superguiadoclash.onrender.com';
   
     const handleBuscar = () => {
         if (!termo.trim()) return;
-        setUrl(`http://localhost:3001/api/clans?name=${encodeURIComponent(termo)}`);
+        setUrl(`${API_URL}/api/clans?name=${encodeURIComponent(termo)}`);
       };
 
       const themeStyles = {
