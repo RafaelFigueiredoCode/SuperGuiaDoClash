@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react';
 import axios from 'axios';
 import { ThemeContext } from '../components/ThemeContext';
+import {Link} from 'react-router-dom'
 
 export default function Leaderboard() {
   const [locations, setLocations] = useState([]);
@@ -10,14 +11,12 @@ export default function Leaderboard() {
   const [error, setError] = useState('');
   const { theme } = useContext(ThemeContext);
 
-  // 🎯 Carregar as localizações
   useEffect(() => {
     axios.get('http://localhost:3001/api/locations')
       .then((res) => setLocations(res.data.items))
       .catch((err) => console.error('Erro ao buscar localizações:', err));
   }, []);
 
-  // 🏆 Buscar ranking quando a localização mudar
   useEffect(() => {
     if (!selectedLocation) return;
 
@@ -31,7 +30,7 @@ export default function Leaderboard() {
         );
 
         if (response.data.items.length === 0) {
-          // 🔍 Caso vazio — API retornou lista vazia
+          
           setPlayers([]);
           setError('Os placares locais estão temporariamente desativados pela Supercell.');
         } else {
@@ -58,57 +57,76 @@ export default function Leaderboard() {
   };
 
   return (
-    <div style={themeStyles}>
-      <h2>🏅 Leaderboard</h2>
-
-      {/* Seleção de localização */}
-      <select
-        value={selectedLocation}
-        onChange={(e) => setSelectedLocation(e.target.value)}
-        style={{
-          padding: '10px',
-          marginTop: '10px',
-          borderRadius: '8px',
-          border: '1px solid gray'
-        }}
-      >
-        {locations.map((loc) => (
-          <option key={loc.id} value={loc.id}>
-            {loc.name}
-          </option>
-        ))}
-      </select>
-
-      {loading && <p>Carregando ranking...</p>}
-      {error && <p style={{ color: 'gray', marginTop: '15px' }}>⚠️ {error}</p>}
-
-      {/* Exibir lista se houver */}
-      {!loading && players.length > 0 && (
-        <div
+    <div
+      style={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        minHeight: '100vh',
+        ...themeStyles, 
+      }}
+    >
+      <div style={{ textAlign: 'center', width: '80%', maxWidth: '1000px' }}>
+        <h2>🏅 Leaderboard</h2>
+  
+        <select
+          value={selectedLocation}
+          onChange={(e) => setSelectedLocation(e.target.value)}
           style={{
-            marginTop: '20px',
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
-            gap: '15px',
+            padding: '10px',
+            marginTop: '10px',
+            borderRadius: '8px',
+            border: '1px solid gray',
           }}
         >
-          {players.map((player) => (
-            <div
-              key={player.tag}
-              style={{
-                border: theme === 'light' ? '1px solid #000' : '1px solid #fff',
-                borderRadius: '10px',
-                padding: '15px',
-              }}
-            >
-              <h3>{player.name}</h3>
-              <p>Tag: {player.tag}</p>
-              <p>Troféus: {player.trophies}</p>
-              <p>Posição: #{player.rank}</p>
-            </div>
+          {locations.map((loc) => (
+            <option key={loc.id} value={loc.id}>
+              {loc.name}
+            </option>
           ))}
-        </div>
-      )}
+        </select>
+  
+        {loading && <p>Carregando ranking...</p>}
+        {error && <p style={{ color: 'gray', marginTop: '15px' }}>⚠️ {error}</p>}
+  
+        {!loading && players.length > 0 && (
+          <div
+            style={{
+              marginTop: '20px',
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
+              gap: '15px',
+            }}
+          >
+            {players.map((player) => (
+              <div
+                key={player.tag}
+                style={{
+                  border: theme === 'light' ? '1px solid #000' : '1px solid #fff',
+                  borderRadius: '10px',
+                  padding: '15px',
+                }}
+              >
+                <h3>{player.name}</h3>
+                <p>Tag: {player.tag}</p>
+                <p>Troféus: {player.trophies}</p>
+                <p>Posição: #{player.rank}</p>
+              </div>
+            ))}
+          </div>
+        )}
+            <Link to={'/'} style={{
+              display: 'inline-block',
+              marginTop: '15px',
+              backgroundColor: theme === 'light' ? '#000' : '#fff',
+              color: theme === 'light' ? '#fff' : '#000',
+              padding: '10px 20px',
+              borderRadius: '8px',
+              textDecoration: 'none'
+            }}>
+              Voltar
+            </Link>
+      </div>
     </div>
   );
-}
+}  

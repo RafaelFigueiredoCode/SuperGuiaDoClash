@@ -214,7 +214,8 @@ export default function CardDetails() {
     }}
         >
 
-      <Link to="/">← Voltar</Link>
+      <Link style={{color: 'red'}} to="/">← Voltar</Link>
+
       <h1>{nomesPTBR[card.name] || card.name}</h1>
   
       {card.iconUrls?.medium && (
