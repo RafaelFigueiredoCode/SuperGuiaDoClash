@@ -13,7 +13,7 @@ app.get('/a', (req, res) => {
 app.get('/api/cards', async (req, res) => {
   try {
     const response = await axios.get('https://api.clashroyale.com/v1/cards', {
-      headers: { Authorization: `Bearer ${process.env.VITE_CLASH_API_TOKEN}` },
+      headers: { Authorization: `Bearer ${process.env.CLASH_API_TOKEN}` },
     });
     res.json(response.data);
   } catch (error) {
@@ -28,7 +28,7 @@ app.get('/api/clans', async (req, res) => {
     const response = await axios.get(
       `https://api.clashroyale.com/v1/clans?name=${encodeURIComponent(name)}&limit=10`,
       {
-        headers: { Authorization: `Bearer ${process.env.VITE_CLASH_API_TOKEN}` },
+        headers: { Authorization: `Bearer ${process.env.CLASH_API_TOKEN}` },
       }
     );
     res.json(response.data);
@@ -43,7 +43,7 @@ app.get('/api/clan/:tag', async (req, res) => {
   try {
     const response = await axios.get(
       `https://api.clashroyale.com/v1/clans/%23${tag}`,
-      { headers: { Authorization: `Bearer ${process.env.VITE_CLASH_API_TOKEN}` } }
+      { headers: { Authorization: `Bearer ${process.env.CLASH_API_TOKEN}` } }
     );
     res.json(response.data);
   } catch (error) {
@@ -56,7 +56,7 @@ app.get('/api/clan/:tag/members', async (req, res) => {
   try {
     const response = await axios.get(
       `https://api.clashroyale.com/v1/clans/%23${tag}/members`,
-      { headers: { Authorization: `Bearer ${process.env.VITE_CLASH_API_TOKEN}` } }
+      { headers: { Authorization: `Bearer ${process.env.CLASH_API_TOKEN}` } }
     );
     res.json(response.data);
   } catch (error) {
@@ -71,7 +71,7 @@ app.get('/api/player/:tag', async (req, res) => {
     const response = await axios.get(
       `https://api.clashroyale.com/v1/players/%23${tag}`,
       {
-        headers: { Authorization: `Bearer ${process.env.VITE_CLASH_API_TOKEN}` },
+        headers: { Authorization: `Bearer ${process.env.CLASH_API_TOKEN}` },
       }
     );
     res.json(response.data);
@@ -85,7 +85,7 @@ app.get('/api/player/:tag/battlelog', async (req, res) => {
   const { tag } = req.params;
   try {
     const response = await axios.get(`https://api.clashroyale.com/v1/players/%23${tag}/battlelog`, {
-      headers: { Authorization: `Bearer ${process.env.VITE_CLASH_API_TOKEN}` }
+      headers: { Authorization: `Bearer ${process.env.CLASH_API_TOKEN}` }
     });
     res.json(response.data);
   } catch (err) {
@@ -97,7 +97,7 @@ app.get('/api/player/:tag/battlelog', async (req, res) => {
 app.get('/api/locations', async (req, res) => {
   try {
     const response = await axios.get('https://api.clashroyale.com/v1/locations', {
-      headers: { Authorization: `Bearer ${process.env.VITE_CLASH_API_TOKEN}` },
+      headers: { Authorization: `Bearer ${process.env.CLASH_API_TOKEN}` },
     });
     res.json(response.data);
   } catch (err) {
@@ -121,7 +121,7 @@ app.get('/api/locations/:locationId/rankings/players', async (req, res) => {
     const url = `https://api.clashroyale.com/v1/locations/${locationId}/rankings/players?limit=${limit}`;
     console.log("🌍 Buscando:", url);
     const response = await axios.get(url, {
-      headers: { Authorization: `Bearer ${process.env.VITE_CLASH_API_TOKEN}` },
+      headers: { Authorization: `Bearer ${process.env.CLASH_API_TOKEN}` },
     });
 
     console.log("✅ Itens recebidos:", response.data.items?.length);
