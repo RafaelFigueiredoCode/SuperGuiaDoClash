@@ -1,7 +1,9 @@
-const express = require('express');
-const cors = require('cors');
-const axios = require('axios');
-require('dotenv').config(); 
+import express from 'express';
+import cors from 'cors';
+import axios from 'axios';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const app = express();
 app.use(cors());
@@ -110,7 +112,6 @@ app.get('/api/locations', async (req, res) => {
   }
 });
 
-
 app.get('/api/locations/:locationId/rankings/players', async (req, res) => {
   const { locationId } = req.params;
   const limit = req.query.limit || 50;
@@ -135,7 +136,6 @@ app.get('/api/locations/:locationId/rankings/players', async (req, res) => {
     });
   }
 });
-
 
 const PORT = 3001;
 app.listen(PORT, '0.0.0.0', () => {

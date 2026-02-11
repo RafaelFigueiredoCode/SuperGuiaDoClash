@@ -26,10 +26,7 @@ const App = () => (
       <Route path="/player/:tag/battleLog" element={<PlayerBattleLog />} />
       <Route path="/clan/:tag" element={<ClanDetails />} />
       <Route path="/clan/:tag/members" element={<ClanMembers />} />
-      <Route
-        path="/locations/:locationId/rankings/players"
-        element={<LeaderboardPage />}
-      />
+      <Route path="/locations/:locationId/rankings/players" element={<LeaderboardPage />}/>
       <Route path="/deckGenerator" element={<DeckGenerator />} />
     </Routes>
   </Router>
