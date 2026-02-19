@@ -5,7 +5,7 @@ import {Link} from 'react-router-dom'
 
 export default function Leaderboard() {
   const [locations, setLocations] = useState([]);
-  const [selectedLocation, setSelectedLocation] = useState('57000000'); // Global por padrão
+  const [selectedLocation, setSelectedLocation] = useState('global'); 
   const [players, setPlayers] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
